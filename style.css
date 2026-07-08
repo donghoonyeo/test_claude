@@ -1,0 +1,205 @@
+:root {
+  --bg: #faf8ef;
+  --panel: #bbada0;
+  --cell-empty: rgba(238, 228, 218, 0.35);
+  --text-dark: #776e65;
+  --text-light: #f9f6f2;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--text-dark);
+}
+
+.app {
+  width: min(92vw, 480px);
+  padding: 16px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.bomb-title {
+  color: #e2725b;
+}
+
+.scores {
+  display: flex;
+  gap: 8px;
+}
+
+.score-box {
+  background: var(--panel);
+  color: var(--text-light);
+  border-radius: 6px;
+  padding: 6px 14px;
+  text-align: center;
+  min-width: 60px;
+}
+
+.score-box .label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.score-box div:last-child {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.hint {
+  font-size: 0.78rem;
+  line-height: 1.3;
+  margin: 0;
+  flex: 1;
+}
+
+#restart {
+  background: #8f7a66;
+  color: var(--text-light);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#restart:hover { background: #9d8a76; }
+
+.board-wrap {
+  position: relative;
+}
+
+.board {
+  position: relative;
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 8px;
+  aspect-ratio: 1 / 1;
+}
+
+.cell {
+  position: relative;
+  background: var(--cell-empty);
+  border-radius: 6px;
+}
+
+.tile {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: clamp(1rem, 5vw, 1.6rem);
+  animation: pop 0.15s ease-out;
+}
+
+@keyframes pop {
+  from { transform: scale(0.5); opacity: 0.4; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.tile.bomb {
+  background: #3b3b3b;
+  color: #fff;
+  font-size: clamp(1.2rem, 6vw, 2rem);
+}
+
+.tile.exploding {
+  animation: explode 0.35s ease-out forwards;
+}
+
+@keyframes explode {
+  0% { transform: scale(1); background: #ff6b4a; }
+  60% { transform: scale(1.3); background: #ffb84a; opacity: 0.9; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.tile[data-v="2"] { background: #eee4da; color: var(--text-dark); }
+.tile[data-v="4"] { background: #ede0c8; color: var(--text-dark); }
+.tile[data-v="8"] { background: #f2b179; color: var(--text-light); }
+.tile[data-v="16"] { background: #f59563; color: var(--text-light); }
+.tile[data-v="32"] { background: #f67c5f; color: var(--text-light); }
+.tile[data-v="64"] { background: #f65e3b; color: var(--text-light); }
+.tile[data-v="128"] { background: #edcf72; color: var(--text-light); font-size: clamp(0.9rem, 4.5vw, 1.4rem); }
+.tile[data-v="256"] { background: #edcc61; color: var(--text-light); font-size: clamp(0.9rem, 4.5vw, 1.4rem); }
+.tile[data-v="512"] { background: #edc850; color: var(--text-light); font-size: clamp(0.9rem, 4.5vw, 1.4rem); }
+.tile[data-v="1024"] { background: #edc53f; color: var(--text-light); font-size: clamp(0.8rem, 4vw, 1.2rem); }
+.tile[data-v="2048"] { background: #edc22e; color: var(--text-light); font-size: clamp(0.8rem, 4vw, 1.2rem); }
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(238, 228, 218, 0.85);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.overlay.hidden { display: none; }
+
+.overlay-msg {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+#overlay-restart {
+  background: #8f7a66;
+  color: var(--text-light);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.controls-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-top: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1b1a17; }
+  body { color: #eee4da; }
+  .hint, .controls-hint { color: #cbbfae; }
+}

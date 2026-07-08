@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2048: Bomb</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>2048: <span class="bomb-title">Bomb</span> 💣</h1>
+      <div class="scores">
+        <div class="score-box">
+          <div class="label">점수</div>
+          <div id="score">0</div>
+        </div>
+        <div class="score-box">
+          <div class="label">최고점</div>
+          <div id="best">0</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <p class="hint">폭탄 타일(💣)을 아무 숫자에 합치면 <b>보드에서 가장 큰 타일</b>이 터지면서 점수를 얻어요!</p>
+      <button id="restart">새 게임</button>
+    </div>
+
+    <div class="board-wrap">
+      <div id="board" class="board"></div>
+      <div id="overlay" class="overlay hidden">
+        <div class="overlay-msg" id="overlay-msg">게임 오버</div>
+        <button id="overlay-restart">다시 시작</button>
+      </div>
+    </div>
+
+    <p class="controls-hint">방향키 / 스와이프로 이동</p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
